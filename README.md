@@ -1,1 +1,2 @@
-# mslearn-ai-language.ar-sa
+# mslearn-ai-language
+ملفات الواجب لوحدات لغة الذكاء الاصطناعي في Azure
