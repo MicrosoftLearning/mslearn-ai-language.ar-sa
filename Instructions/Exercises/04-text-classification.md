@@ -345,7 +345,7 @@
 <li>
 <p dir="auto">انقر بزر الماوس الأيمن فوق مجلد <strong>تصنيف نص</strong> الذي يحتوي على ملفات التعليمات البرمجية الخاصة بك وافتح وحدة طرفية متكاملة. ثم ثبّت حزمة Azure AI Language Text Analytics SDK عن طريق تشغيل الأمر المناسب لتفضيل اللغة لديك:</p>
 </li>
-<p dir="rtl"><strong>C#:</strong></p>
+<p dir="rtl"><strong>:#C</strong></p>
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>dotnet add package Azure.AI.TextAnalytics --version 5.3.0
 </code></pre><div class="zeroclipboard-container">
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="dotnet add package Azure.AI.TextAnalytics --version 5.3.0" tabindex="0" role="button">
@@ -357,7 +357,7 @@
 </svg>
     </clipboard-copy>
   </div></div>
-<p dir="rtl"><strong>Python</strong>:</p>
+<p dir="rtl">:<strong>Python</strong></p>
 <div class="snippet-clipboard-content notranslate position-relative overflow-auto"><pre class="notranslate"><code>pip install azure-ai-textanalytics==5.3.0
 </code></pre><div class="zeroclipboard-container">
     <clipboard-copy aria-label="Copy" class="ClipboardButton btn btn-invisible js-clipboard-copy m-2 p-0 d-flex flex-justify-center flex-items-center" data-copy-feedback="Copied!" data-tooltip-direction="w" value="pip install azure-ai-textanalytics==5.3.0" tabindex="0" role="button">
@@ -427,11 +427,11 @@ ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)</co
 <p dir="rtl"><strong>C#</strong>: Program.cs</p>
 <div class="highlight highlight-source-cs notranslate position-relative overflow-auto" dir="auto"><pre><code>// Get Classifications
 ClassifyDocumentOperation operation = await aiClient.SingleLabelClassifyAsync(WaitUntil.Completed, batchedDocuments, projectName, deploymentName);
-
+<br>
 int fileNo = 0;
 await foreach (ClassifyDocumentResultCollection documentsInPage in operation.Value)
 {
-    
+<br>
     foreach (ClassifyDocumentResult documentResult in documentsInPage)
     {
         Console.WriteLine(files[fileNo].Name);
@@ -442,10 +442,10 @@ await foreach (ClassifyDocumentResultCollection documentsInPage in operation.Val
             Console.WriteLine($"  Message: {documentResult.Error.Message}");
             continue;
         }
-
+<br>
         Console.WriteLine($"  Predicted the following class:");
         Console.WriteLine();
-
+<br>
         foreach (ClassificationCategory classification in documentResult.ClassificationCategories)
         {
             Console.WriteLine($"  Category: {classification.Category}");
@@ -462,9 +462,9 @@ operation = ai_client.begin_single_label_classify(
     project_name=project_name,
     deployment_name=deployment_name
 )
-
+<br>
 document_results = operation.result()
-
+<br>
 for doc, classification_result in zip(files, document_results):
     if classification_result.kind == "CustomDocumentClassification":
         classification = classification_result.classifications[0]
@@ -485,7 +485,7 @@ for doc, classification_result in zip(files, document_results):
 <li>
 <p dir="auto">في الوحدة الطرفية المتكاملة لمجلد <strong>تصنيف نص</strong>، وأدخل الأمر التالي لتشغيل البرنامج:</p>
 <ul dir="rtl">
-<li><strong>C#:</strong> <code>dotnet run</code></li>
+<li><strong>:#C</strong> <code>dotnet run</code></li>
 <li><strong>Python</strong>: <code>python classify-text.py</code></li>
 </ul>
 <blockquote>
