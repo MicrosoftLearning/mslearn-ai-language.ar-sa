@@ -227,7 +227,7 @@ lab:
 
 ## ماذا لو كان لديك ميكروفون ومكبر صوت؟
 
-سوف تستخدم ملفات صوتية لمدخلات ومخرجات الكلام في هذا التدريب. دعونا نرى كيف يمكن تعديل التعليمات البرمجية لاستخدام الأجهزة الصوتية.
+في هذا التمرين، لا تدعم بيئة Azure Cloud Shell التي استخدمناها أجهزة الصوت، لذلك استخدمت ملفات الصوت لإدخال الكلام وإخراجه. لنرَ كيف يمكن تعديل التعليمة البرمجية لاستخدام أجهزة الصوت إذا كانت متوفرة لديك.
 
 ### استخدام الترجمة الصوتية مع الميكروفون
 
@@ -258,7 +258,7 @@ lab:
             "hi": "hi-IN-MadhurNeural"
    }
    speech_config.speech_synthesis_voice_name = voices.get(targetLanguage)
-   audio_config_out = speech_sdk.audio.AudioConfig(use_default_speaker=True)
+   audio_config_out = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
    speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config, audio_config_out)
    speak = speech_synthesizer.speak_text_async(translation).get()
    if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
