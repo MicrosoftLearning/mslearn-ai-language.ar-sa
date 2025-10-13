@@ -1,73 +1,73 @@
-# Requirements
+# المتطلبات
 
-## Run in Cloud Shell
+## تشغيل في Cloud Shell
 
-* Azure subscription with OpenAI access
-* If running in the Azure Cloud Shell, choose the Bash shell. The Azure CLI and Azure Developer CLI are included in the Cloud Shell.
+* اشتراك Azure مع وصول إلى OpenAI
+* في حال التشغيل في Azure Cloud Shell، اختَر Bash shell. يتم تضمين Azure CLI وAzure Developer CLI في Cloud Shell.
 
-## Run locally
+## شغّل محليًا
 
-* You can run the web app locally after running the deployment script:
+* يمكنك تشغيل تطبيق الويب محليًا بعد تشغيل البرنامج النصي للنشر:
     * [Azure Developer CLI (azd)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)
     * [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
-    * Azure subscription with OpenAI access
+    * اشتراك Azure مع وصول إلى OpenAI
 
 
-## Environment Variables
+## متغيرات البيئة
 
-The  `.env` file is created by the *azdeploy.sh* script. The AI model endpoint, API key, and model name are added during the deployment of the resources.
+يتم إنشاء ملف `.env` بواسطة البرنامج النصي *azdeploy.sh*. تتم إضافة نقطة نهاية نموذج الذكاء الاصطناعي، ومفتاح API، واسم النموذج في أثناء نشر الموارد.
 
-## Azure resource deployment
+## نشر موارد Azure
 
-The provided `azdeploy.sh` creates the required resources in Azure:
+يتولى `azdeploy.sh` المقدم إنشاء الموارد المطلوبة في Azure:
 
-* Change the two variables at the top of the script to match your needs, don't change anything else.
-* The script:
-    * Deploys the *gpt-4o* model using AZD.
-    * Creates Azure Container Registry service
-    * Uses ACR tasks to build and deploy the Dockerfile image to ACR
-    * Creates the App Service Plan
-    * Creates the App Service Web App
-    * Configures the web app for container image in ACR
-    * Configures the web app environment variables
-    * The script will provide the App Service endpoint
+* تغيير المتغيرَين في الجزء العلوي من البرنامج النصي لمطابقة احتياجاتك، لا تغيّر أي شيء آخر.
+* بيان النص:
+    * نشر نموذج *gpt-4o* باستخدام AZD.
+    * إنشاء خدمة Azure Container Registry
+    * استخدام مهام ACR لإنشاء صورة Dockerfile ونشرها إلى ACR
+    * إنشاء خطة خدمة التطبيق
+    * إنشاء تطبيق الويب لخدمة التطبيق
+    * تكوين تطبيق الويب لصورة الحاوية في ACR
+    * تكوين متغيرات بيئة تطبيق الويب
+    * سيوفر البرنامج النصي نقطة نهاية خدمة التطبيق
 
-The script provides two deployment options: 1. Full deployment; and 2. Redeploy the image only. Option 2 is only for post-deployment when you want to experiment with changes in the application. 
+يوفر البرنامج النصي خيارين للنشر: 1. نشر كامل، و2. إعادة نشر الصورة فقط. الخيار 2 هو فقط لما بعد النشر عندما تريد تجربة التغييرات في التطبيق. 
 
-> Note: You can run the script in PowerShell, or Bash, using the `bash azdeploy.sh` command, this command also let's you run the script in Bash without having to make it an executable.
+> ملاحظة: يمكنك تشغيل البرنامج النصي في PowerShell أو Bash، باستخدام الأمر `bash azdeploy.sh`، ويتيح لك هذا الأمر أيضًا تشغيل البرنامج النصي في Bash دون الحاجة إلى جعله قابلًا للتنفيذ.
 
-## Local development
+## التطوير المحلي
 
-### Provision AI model to Azure
+### توفير نموذج الذكاء الاصطناعي لـ Azure
 
-You can run the run the project locally and only provision the AI model following these steps:
+يمكنك تشغيل المشروع محليًا وتوفير نموذج الذكاء الاصطناعي فقط باتباع الخطوات التالية:
 
-1. **Initialize environment** (choose a descriptive name):
+1. **تهيئة البيئة** (اختَر اسمًا وصفيًا):
 
    ```bash
    azd env new gpt-realtime-lab --confirm
    # or: azd env new your-name-gpt-experiment --confirm
    ```
    
-   **Important**: This name becomes part of your Azure resource names!  
-   The `--confirm` flag sets this as your default environment without prompting.
+   **مهم**: يصبح هذا الاسم جزءًا من أسماء موارد Azure!  
+   تعيّن علامة `--confirm` هذا الاسم كبيئة افتراضية دون مطالبة.
 
-1. **Set your resource group**:
+1. **تعيين مجموعة الموارد الخاصة بك**:
 
    ```bash
    azd env set AZURE_RESOURCE_GROUP "rg-your-name-gpt"
    ```
 
-1. **Login and provision AI resources**:
+1. **تسجيل الدخول وتوفير موارد الذكاء الاصطناعي**:
 
    ```bash
    az login
    azd provision
    ```
 
-    > **Important**: Do NOT run `azd deploy` - the app is not configured in the AZD templates.
+    > **مهم**: عدم تشغيل `azd deploy` - لم يتم تكوين التطبيق في قوالب AZD.
 
-If you only provisioned the model using the `azd provision` method you MUST create a `.env` file in the root of the directory with the following entries:
+إذا قمت بتوفير النموذج فقط باستخدام أسلوب `azd provision`، فيجب إنشاء ملف `.env` في جذر الدليل بالإدخالات التالية:
 
 ```
 AZURE_VOICE_LIVE_ENDPOINT=""
@@ -78,27 +78,27 @@ VOICE_LIVE_INSTRUCTIONS="You are a helpful AI assistant with a focus on world hi
 VOICE_LIVE_VERBOSE="" #Suppresses excessive logging to the terminal if running locally
 ```
 
-Notes:
+ملاحظات:
 
-1. The endpoint is the endpoint for the model and it should only include `https://<proj-name>.cognitiveservices.azure.com`.
-1. The API key is the key for the model.
-1. The model is the model name used during deployment.
-1. You can retrieve these values from the AI Foundry portal.
+1. نقطة النهاية هي نقطة النهاية للنموذج ويجب أن تتضمن `https://<proj-name>.cognitiveservices.azure.com` فقط.
+1. مفتاح API هو مفتاح النموذج.
+1. النموذج هو اسم النموذج المُستخدم في أثناء النشر.
+1. يمكنك استرداد هذه القيم من مدخل مصنع الذكاء الاصطناعي.
 
-### Running the project locally
+### تشغيل المشروع محليًا
 
-The project was was created and managed using **uv**, but it is not required to run. 
+تم إنشاء المشروع وإدارته باستخدام **uv**، ولكنها ليست مطلوبة لتشغيله. 
 
-If you have **uv** installed:
+إذا كانت **uv** مثبتة لديك، فيتعين:
 
-* Run `uv venv` to create the environment
-* Run `uv sync` to add packages
-* Alias created for web app: `uv run web` to start the `flask_app.py` script.
-* requirements.txt file created with `uv pip compile pyproject.toml -o requirements.txt`
+* تشغيل `uv venv` لإنشاء البيئة
+* تشغيل `uv sync` لإضافة حزم
+* الاسم المستعار الذي تم إنشاؤه لتطبيق الويب: `uv run web` لبدء البرنامج النصي `flask_app.py`.
+* تم إنشاء ملف ‎requirements.txt‎ باستخدام `uv pip compile pyproject.toml -o requirements.txt`
 
-If you don't have **uv** installed:
+إذا لم تكن **uv** مثبتة لديك، فيتعين:
 
-* Create environment: `python -m venv .venv`
-* Activate environment: `.\.venv\Scripts\Activate.ps1`
-* Install dependencies: `pip install -r requirements.txt`
-* Run application (from project root): `python .\src\real_time_voice\flask_app.py`
+* إنشاء البيئة: `python -m venv .venv`
+* تنشيط البيئة: `.\.venv\Scripts\Activate.ps1`
+* تثبيت التبعيات: `pip install -r requirements.txt`
+* تشغيل التطبيق (من جذر المشروع): `python .\src\real_time_voice\flask_app.py`
