@@ -248,7 +248,7 @@ cd src
 1. قُم بتشغيل الأوامر التالية في Cloud Shell لبدء تحرير البرنامج النصي للنشر.
 
     ```bash
-    cd ~/voice-live-web
+    cd ~/01-voice-live-web
     ```
     
     ```bash
